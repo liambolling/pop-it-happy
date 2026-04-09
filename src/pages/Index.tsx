@@ -4,7 +4,7 @@ const openPopup = () => {
   window.open(
     "",
     "popup",
-    "width=150,height=200,toolbar=no,location=no,menubar=no"
+    "width=200,height=300,toolbar=no,location=no,menubar=no"
   );
 };
 
