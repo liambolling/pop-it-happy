@@ -20,10 +20,23 @@ const Index = () => {
       return;
     }
 
-    const pipWindow = await (window as any).documentPictureInPicture.requestWindow({
-      width: 300,
-      height: 200,
-    });
+    let pipWindow: Window;
+    try {
+      pipWindow = await (window as any).documentPictureInPicture.requestWindow({
+        width: 300,
+        height: 200,
+      });
+    } catch (e: any) {
+      if (e.name === "NotAllowedError") {
+        alert(
+          "Document PiP must be called from a top-level page, not an iframe.\n\n" +
+          "Publish the site or open it directly (not in the Lovable preview) to test this feature."
+        );
+      } else {
+        alert("Failed to open PiP window: " + e.message);
+      }
+      return;
+    }
 
     // Copy stylesheets into PiP window
     const style = pipWindow.document.createElement("style");
